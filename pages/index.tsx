@@ -1,6 +1,6 @@
 import PokemonLocalRepository from '../app/repositories/pokemon/strategies/pokemon.repository.local';
 import PokemonRemoteRepository from '../app/repositories/pokemon/strategies/pokemon.repository.remote';
-import PokemonController from '../app/controllers/pokemon/pokemon.controller';
+import PokemonViewController from '../app/viewControllers/pokemon/pokemon.controller';
 import OrganizationChartView from '../app/views/organizationChart/OrganizationChartView';
 
 import type { NextPage } from 'next';
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         }}
       >
         <p>Pokemon Local Repository</p>
-        <PokemonController pokemonRepository={pokemonLocalRepository}/>
+        <PokemonViewController pokemonRepository={pokemonLocalRepository}/>
         {/* <p>Pokemon Remote Repository</p> */}
         {/* <PokemonController pokemonRepository={pokemonRemoteRepository}/> */}
         {/* <PokemonViewTest /> */}
