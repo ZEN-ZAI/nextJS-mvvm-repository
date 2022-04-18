@@ -2,11 +2,6 @@ import styled from '@emotion/styled';
 import { Button, Container, Stack, Box } from '@mui/material';
 import Link from 'next/link';
 
-const StyledLink = styled.a`
-  color: red;
-  background: blue;
-`
-
 const Home = () => {
   return (
     <Container maxWidth='lg'>

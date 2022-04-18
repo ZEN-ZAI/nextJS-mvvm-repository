@@ -4,7 +4,7 @@ import PokemonRepository from "../app/repositories/pokemon/pokemon.repository";
 import PokemonLocalDataSource from "../app/repositories/pokemon/pokemon.dataSource.local";
 import PokemonRemoteDataSource from "../app/repositories/pokemon/pokemon.dataSource.remote";
 import PokemonViewModel from '../app/viewModels/pokemon/pokemon.viewModel';
-import PokemonsView from '../app/views/pokemon/PokemonsView';
+import PokedexView from '../app/views/pokemon/PokedexView';
 
 const PokemonsPage = () => {
   const pokemonLocalDataSource = new PokemonLocalDataSource();
@@ -38,7 +38,7 @@ const PokemonsPage = () => {
         }}
       >
         <p>Pokemon Local Repository</p>
-        {/* <PokemonsView pokemonModels={data.findAll} /> */}
+        {/* <PokedexView pokemonModels={data.findAll} /> */}
         {/* <p>Pokemon Local Repository</p>
         <PokemonViewController pokemonRepository={pokemonLocalDataSource} />
         <p>Pokemon Remote Repository</p>

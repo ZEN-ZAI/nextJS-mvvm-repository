@@ -1,14 +1,15 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
+import { NextComponentType, NextPageContext } from 'next';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import createEmotionCache from '../app/createEmotionCache';
-import { NextComponentType, NextPageContext } from 'next';
-import MenuAppBar from '../app/components/base/MenuAppBar';
+import createEmotionCache from '../utils/createEmotionCache';
 import useStorage from '../utils/storage';
-
+import lightTheme from '../styles/lightTheme';
+import darkTheme from '../styles/darkTheme';
+import MenuAppBar from '../app/components/base/MenuAppBar';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -24,40 +25,27 @@ export default function MyApp(props: MyAppProps) {
 
   const { getItem, setItem } = useStorage();
 
-  // if (typeof window !== 'undefined') {
-  //   console.log('we are running on the client')
-  //   const themeMode = localStorage.getItem('theme');
-  //   console.log(themeMode);
-  // } else {
-  //     console.log('we are running on the server');
-  // }
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      const themeMode = localStorage.getItem('theme');
-      console.log(themeMode);
-    }, 1000);
-  }, []);
-
-  const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
-  const colorMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-    setItem('theme', mode === 'light' ? 'dark' : 'light', 'local');
+  const [activeTheme, setActiveTheme] = useState(lightTheme);
+  const [selectTheme, setSelectTheme] = useState<'light' | 'dark'>('light');
+  
+  const toggleTheme = () => {
+    const desiredTheme = selectTheme == 'light' ? 'dark' : 'light';
+    setSelectTheme(desiredTheme);
   };
-  const theme = createTheme({
-    palette: {
-      mode,
-    },
-  });
+
+  useEffect(() => {
+    setActiveTheme(selectTheme == 'light' ? lightTheme : darkTheme);
+  }, [selectTheme]);
+
 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={activeTheme}>
         <CssBaseline />
-        <MenuAppBar theme={theme} colorMode={colorMode} />
+        <MenuAppBar theme={activeTheme} colorMode={toggleTheme} />
         {/* @ts-ignore */}
         <Component {...pageProps} />
       </ThemeProvider>
