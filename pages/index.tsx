@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Button, Container, Stack, Box } from '@mui/material';
+import { Button, Container, Stack, Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
 const Home = () => {
@@ -16,13 +16,17 @@ const Home = () => {
       >
       <Stack spacing={2} direction='column'>
         <Link href='/organization-chart' passHref>
-          <Button variant='contained'>
-            Organization Chart
+          <Button variant='contained' color='primary'>
+            <Typography color='inherit'>
+              Organization Chart
+            </Typography>
           </Button>
         </Link>
         <Link href='/pokedex' passHref>
-          <Button variant='contained'>
-            Pokedex
+          <Button variant='contained' color='primary'>
+            <Typography color='inherit'>
+              Pokedex
+            </Typography>
           </Button>
         </Link>
       </Stack>

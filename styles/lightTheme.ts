@@ -9,8 +9,11 @@ const theme = createTheme({
     primary: {
       main: '#00ADB5',
     },
+    secondary: {
+      main: '#FFD369',
+    },
     text: {
-      primary: '#EEEEEE',
+      primary: '#EEEEEE'
     }
   },
 });

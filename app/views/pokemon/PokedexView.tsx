@@ -12,9 +12,9 @@ const PokedexView = ({ pokemonModels }: PokedexProps) => {
     <ImageList sx={{ width: 1000 }} cols={6} >
       {pokemonModels.map((item: PokemonModel) =>
       (
-        <Button variant='text' color='primary'>
+        <Button variant='text' color='primary' key={item.id}>
           <Link href={`/pokemon/${item.id}`} passHref>
-            <ImageListItem key={item.img} >
+            <ImageListItem >
               <img
                 src={`${item.img}?w=250&fit=crop&auto=format`}
                 srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

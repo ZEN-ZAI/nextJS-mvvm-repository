@@ -5,11 +5,11 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#EEEEEE',
-    },
-    secondary: {
       main: '#393E46',
     },
+    text: {
+      primary: '#EEEEEE'
+    }
   },
 });
 

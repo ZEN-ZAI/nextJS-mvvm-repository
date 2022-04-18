@@ -37,12 +37,14 @@ export default function MenuAppBar({ theme, colorMode }: MenuAppBarProps) {
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             <LinkStyle href='/'>
-              <a>Home</a>
+              Home
             </LinkStyle>
           </Typography>
-          {theme.palette.mode} mode
+          <Typography color='white'>
+            {theme.palette.mode.charAt(0).toUpperCase() + theme.palette.mode.substring(1)} Mode
+          </Typography>
           <IconButton sx={{ ml: 1 }} onClick={colorMode} color='inherit'>
-            {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {theme.palette.mode === 'light' ? <Brightness7Icon style={{ color: 'white'}}/> : <Brightness4Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>

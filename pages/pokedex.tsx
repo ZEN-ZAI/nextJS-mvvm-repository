@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import PokemonRepository from "../app/repositories/pokemon/pokemon.repository";
 import PokemonLocalDataSource from "../app/repositories/pokemon/pokemon.dataSource.local";
 import PokemonRemoteDataSource from "../app/repositories/pokemon/pokemon.dataSource.remote";
@@ -23,7 +23,9 @@ const PokemonsPage = ({ pokemonModels }: PokedexProps) => {
           alignItems: 'center',
         }}
       >
-        <h2 color='primary.main'>Pokemon Repository</h2>
+        <Typography variant='h4' color='primary'>
+          Pokemon Repository
+        </Typography>
         <PokedexView pokemonModels={pokemonModels} />
       </Box>
     </Container>
