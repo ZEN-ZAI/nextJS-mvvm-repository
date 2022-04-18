@@ -1,41 +1,36 @@
-import PokemonLocalRepository from '../app/repositories/pokemon/strategies/pokemon.repository.local';
-import PokemonRemoteRepository from '../app/repositories/pokemon/strategies/pokemon.repository.remote';
-import PokemonViewController from '../app/viewControllers/pokemon/pokemon.controller';
-import OrganizationChartView from '../app/views/organizationChart/OrganizationChartView';
+import styled from '@emotion/styled';
+import { Button, Container, Stack, Box } from '@mui/material';
+import Link from 'next/link';
 
-import type { NextPage } from 'next';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
+const StyledLink = styled.a`
+  color: red;
+  background: blue;
+`
 
-const Home: NextPage = () => {
-  const pokemonLocalRepository = new PokemonLocalRepository();
-  const pokemonRemoteRepository = new PokemonRemoteRepository();
-  
-  // return (
-  //   <Card sx={{ width: '100%', height: '20%' }}>
-  //     <div style={{ width: '100%', height: '100vh' }}>
-  //       <OrganizationChartView />
-  //     </div>
-  //   </Card>
-  // )
-
+const Home = () => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth='lg'>
       <Box
         sx={{
-          my: 4,
+          my: 5,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <p>Pokemon Local Repository</p>
-        <PokemonViewController pokemonRepository={pokemonLocalRepository}/>
-        {/* <p>Pokemon Remote Repository</p> */}
-        {/* <PokemonController pokemonRepository={pokemonRemoteRepository}/> */}
-        {/* <PokemonViewTest /> */}
+      <Stack spacing={2} direction='column'>
+        <Link href='/organization-chart' passHref>
+          <Button variant='contained'>
+            Organization Chart
+          </Button>
+        </Link>
+        <Link href='/pokedex' passHref>
+          <Button variant='contained'>
+            Pokedex
+          </Button>
+        </Link>
+      </Stack>
       </Box>
     </Container>
   );

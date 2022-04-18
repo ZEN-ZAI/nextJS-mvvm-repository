@@ -68,26 +68,46 @@ class PokemonModel {
 
   public static mock(): PokemonModel {
     const json = {
-      "id": 0,
-      "num": "0",
-      "name": "ZEN",
-      "img": "https://avatars.githubusercontent.com/u/26882240",
-      "type": [
-        "Dark"
+      'id': 0,
+      'num': '0',
+      'name': 'ZEN',
+      'img': 'https://avatars.githubusercontent.com/u/26882240',
+      'type': [
+        'Dark'
       ],
-      "height": "1.72 m",
-      "weight": "92.0 kg",
-      "candy": "None",
-      "egg": "Not in Eggs",
-      "spawn_chance": 0,
-      "avg_spawns": 0,
-      "spawn_time": "N/A",
-      "multipliers": null,
-      "weaknesses": [
-        "Bug",
-        "Fire",
-        "Water"
+      'height': '1.72 m',
+      'weight': '92.0 kg',
+      'candy': 'None',
+      'egg': 'Not in Eggs',
+      'spawn_chance': 0,
+      'avg_spawns': 0,
+      'spawn_time': 'N/A',
+      'multipliers': null,
+      'weaknesses': [
+        'Bug',
+        'Fire',
+        'Water'
       ]
+    }
+    return plainToInstance(PokemonModel, json);
+  }
+
+  public static dummy(): PokemonModel {
+    const json = {
+      'id': 0,
+      'num': '0',
+      'name': '',
+      'img': '',
+      'type': [],
+      'height': '',
+      'weight': '',
+      'candy': '',
+      'egg': '',
+      'spawn_chance': 0,
+      'avg_spawns': 0,
+      'spawn_time': '',
+      'multipliers': null,
+      'weaknesses': []
     }
     return plainToInstance(PokemonModel, json);
   }
@@ -98,11 +118,11 @@ class PokemonModel {
     // return Object.assign(x, json);
   }
 
-  public toRawJson() {
+  public toRawJson(): string {
     return JSON.stringify(this);
   }
 
-  public toJson() {
+  public toJson(): JSON {
     return JSON.parse(this.toRawJson());
   }
 }

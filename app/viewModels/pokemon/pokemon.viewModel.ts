@@ -1,11 +1,16 @@
-import { runInAction, action, computed, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import PokemonModel from '../../models/pokemon/pokemon.model';
+import PokemonLocalDataSource from '../../repositories/pokemon/pokemon.dataSource.local';
+import PokemonRepository from '../../repositories/pokemon/pokemon.repository';
 
 class PokemonViewModel {
+  @observable private pokemonRepository: PokemonRepository = new PokemonRepository(new PokemonLocalDataSource());
   @observable private pokemons: PokemonModel[] = [];
 
-  constructor(pokemons: PokemonModel[]) {
-    this.pokemons = pokemons;
+  @action async init(pokemonRepository: PokemonRepository): Promise<PokemonViewModel> {
+    this.pokemonRepository = pokemonRepository;
+    this.pokemons = await this.pokemonRepository.findAll();
+    return this;
   }
 
   @computed get findAll(): PokemonModel[] {

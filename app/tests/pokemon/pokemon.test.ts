@@ -1,37 +1,32 @@
-import PokemonModel from '../../models/pokemon/pokemon.model';
 import PokemonRepository from '../../repositories/pokemon/pokemon.repository';
-import PokemonLocalRepository from '../../repositories/pokemon/strategies/pokemon.repository.local';
-import PokemonRemoteRepository from '../../repositories/pokemon/strategies/pokemon.repository.remote';
+import PokemonLocalDataSource from '../../repositories/pokemon/pokemon.dataSource.local';
+import PokemonRemoteDataSource from '../../repositories/pokemon/pokemon.dataSource.remote';
 import PokemonViewModel from '../../viewModels/pokemon/pokemon.viewModel';
+import PokemonModel from '../../models/pokemon/pokemon.model';
 
-const pokemonLocalRepository = new PokemonLocalRepository();
-const pokemonRepository = new PokemonRepository(pokemonLocalRepository);
-// const pokemonRemoteRepository = new PokemonRemoteRepository();
-// const pokemonRepository = new PokemonRepository(pokemonRemoteRepository);
+const pokemonLocalDataSource = new PokemonLocalDataSource();
+const pokemonRemoteDataSource = new PokemonRemoteDataSource();
+const pokemonRepository = new PokemonRepository(pokemonLocalDataSource);
 
 test('FindAll -> Pokemon must have 151', async () => {
-  const pokemonModels = await pokemonRepository.findAll();
-  const pokemonViewModel = new PokemonViewModel(pokemonModels);
+  const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
   expect(pokemonViewModel.findAll.length).toBe(151);
 });
 
 test('FindOne -> Pokemon No. 1 name is Bulbasaur', async () => {
-  const pokemonModels = await pokemonRepository.findAll();
-  const pokemonViewModel = new PokemonViewModel(pokemonModels);
+  const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
   const pokemon = pokemonViewModel.findOne('1');
   expect(pokemon?.name).toBe('Bulbasaur');
 });
 
 test('Create -> Pokemon must have 152', async () => {
-  const pokemonModels = await pokemonRepository.findAll();
-  const pokemonViewModel = new PokemonViewModel(pokemonModels);
+  const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
   pokemonViewModel.create(PokemonModel.mock());
   expect(pokemonViewModel.findAll.length).toBe(152);
 });
 
 test('Update -> Pokemon No.1 name is ZEN', async () => {
-  const pokemonModels = await pokemonRepository.findAll();
-  const pokemonViewModel = new PokemonViewModel(pokemonModels);
+  const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
   const pokemon = PokemonModel.mock();
   pokemon.id = 1;
   pokemonViewModel.update('1', pokemon);
@@ -40,8 +35,7 @@ test('Update -> Pokemon No.1 name is ZEN', async () => {
 });
 
 test('Delete -> Pokemon must have 150', async () => {
-  const pokemonModels = await pokemonRepository.findAll();
-  const pokemonViewModel = new PokemonViewModel(pokemonModels);
+  const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
   pokemonViewModel.delete('1');
   expect(pokemonViewModel.findAll.length).toBe(150);
 });

@@ -1,15 +1,15 @@
-import PokemonModel from "../../../models/pokemon/pokemon.model";
-import IPokemonRepositoryStrategy from '../../interfaces/IStrategy';
+import PokemonModel from "../../models/pokemon/pokemon.model";
+import IPokemonDataSourceStrategy from '../interfaces/IDataSourceStrategy';
 import axios from 'axios';
 
 const fetcher = (url: string) => axios.get(url).then(response => response.data);
 
-class PokemonRemoteRepository implements IPokemonRepositoryStrategy<PokemonModel> {
+class PokemonRemoteDataSource implements IPokemonDataSourceStrategy<PokemonModel> {
   public async getAll(): Promise<PokemonModel[]> {
     try {
       //https://designer.mocky.io/manage/delete/460a9e14-d6c6-4cc1-8bd3-f8d1a4d2331f/noK27cPkfJaoM11UnmQhlre6X0c8a8yAkVFN
       const key = 'https://run.mocky.io/v3/460a9e14-d6c6-4cc1-8bd3-f8d1a4d2331f';
-      return await fetcher(key);
+      return fetcher(key);
     } catch (error) {
       throw error;
     }
@@ -19,18 +19,18 @@ class PokemonRemoteRepository implements IPokemonRepositoryStrategy<PokemonModel
     return PokemonModel.mock();
   }
 
-  public post(item: PokemonModel): boolean {
+  public async post(item: PokemonModel): Promise<boolean> {
     const json = item.toJson();
     return true;
   }
 
-  public put(id: string, item: PokemonModel): boolean {
+  public async put(id: string, item: PokemonModel): Promise<boolean> {
     return true;
   }
 
-  public delete(id: string): boolean {
+  public async delete(id: string): Promise<boolean> {
     return true;
   }
 }
 
-export default PokemonRemoteRepository;
+export default PokemonRemoteDataSource;

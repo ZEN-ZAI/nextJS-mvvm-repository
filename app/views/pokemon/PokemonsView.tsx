@@ -4,11 +4,11 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
-type PokemonsProps = {
+type PokedexProps = {
   pokemonModels: PokemonModel[];
 }
 
-const PokemonsView = ({ pokemonModels }: PokemonsProps) => {
+const PokemonsView = ({ pokemonModels }: PokedexProps) => {
   return (
     <ImageList sx={{ width: 1000 }} cols={6} >
       {pokemonModels.map((item: PokemonModel) =>
