@@ -7,8 +7,8 @@ const fetcher = (url: string) => axios.get(url).then(response => response.data);
 class PokemonRemoteDataSource implements IPokemonDataSourceStrategy<PokemonModel> {
   public async getAll(): Promise<PokemonModel[]> {
     try {
-      //https://designer.mocky.io/manage/delete/460a9e14-d6c6-4cc1-8bd3-f8d1a4d2331f/noK27cPkfJaoM11UnmQhlre6X0c8a8yAkVFN
-      const key = 'https://run.mocky.io/v3/460a9e14-d6c6-4cc1-8bd3-f8d1a4d2331f';
+      //https://designer.mocky.io/manage/delete/f9d9d724-2a69-4948-b8d0-3824fedcf87e/Tkl0s6gsWoxuwhPU2roIT9AcJv0tqmjhwxL2
+      const key = 'https://run.mocky.io/v3/f9d9d724-2a69-4948-b8d0-3824fedcf87e';
       return fetcher(key);
     } catch (error) {
       throw error;
@@ -16,7 +16,13 @@ class PokemonRemoteDataSource implements IPokemonDataSourceStrategy<PokemonModel
   }
 
   public async getOne(id: string): Promise<PokemonModel> {
-    return PokemonModel.mock();
+    try {
+      //https://designer.mocky.io/manage/delete/e691fd27-3ba9-4949-b435-427bbf914774/J6Hg9c3P99PGQN4DHZOmWdm4dwJIuhJV3tGq
+      const key = 'https://run.mocky.io/v3/e691fd27-3ba9-4949-b435-427bbf914774';
+      return fetcher(key);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public async post(item: PokemonModel): Promise<boolean> {

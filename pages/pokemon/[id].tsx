@@ -16,18 +16,18 @@ const PokemonPage = ({ pokemonModel }: PokemonProps) => {
   const router = useRouter();
   const id = router.query.id as string;
 
-  const pokemonLocalDataSource = new PokemonLocalDataSource();
-  const pokemonRemoteDataSource = new PokemonRemoteDataSource();
-
-  const [data, setData] = useState<PokemonModel>();
+  const [data, setData] = useState<PokemonModel>(pokemonModel);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
+    const pokemonLocalDataSource = new PokemonLocalDataSource();
+    const pokemonRemoteDataSource = new PokemonRemoteDataSource();
     const pokemonRepository = new PokemonRepository(pokemonLocalDataSource);
     const pokemonViewModelPromise = new PokemonViewModel().init(pokemonRepository);
-    pokemonViewModelPromise.then(pokemonViewModel => {
-      setData(pokemonViewModel.findOne(id)!);
+    pokemonViewModelPromise.then(async pokemonViewModel => {
+      const pokemom = await pokemonViewModel.findOne(id);
+      setData(pokemom!);
       setLoading(false);
     })
   }, []);
@@ -56,7 +56,8 @@ export async function getStaticPaths() {
   const pokemonLocalDataSource = new PokemonLocalDataSource();
   const pokemonRepository = new PokemonRepository(pokemonLocalDataSource);
   const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
-  const paths = pokemonViewModel.findAll.map((pokemon) =>
+  const pokemonModels = await pokemonViewModel.findAll();
+  const paths = pokemonModels.map((pokemon) =>
     ({ params: { id: pokemon.id.toString() } })
   );
 
@@ -70,8 +71,7 @@ export async function getStaticProps({ params }: any) {
   const pokemonLocalDataSource = new PokemonLocalDataSource();
   const pokemonRepository = new PokemonRepository(pokemonLocalDataSource);
   const pokemonViewModel = await new PokemonViewModel().init(pokemonRepository);
-  const pokemonModel = pokemonViewModel.findOne(params.id)!
-
+  const pokemonModel = await pokemonViewModel.findOne(params.id)!;
   return {
     props: {
       pokemonModels: pokemonModel != undefined ? pokemonModel.toJson() : PokemonModel.dummy().toJson(),

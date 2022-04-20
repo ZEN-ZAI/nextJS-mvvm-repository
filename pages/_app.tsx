@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { NextComponentType, NextPageContext } from 'next';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, Theme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import createEmotionCache from '../utils/createEmotionCache';
 import useStorage from '../utils/storage';
@@ -22,21 +22,23 @@ interface MyAppProps extends AppProps {
 
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
   const { getItem, setItem } = useStorage();
 
-  const [activeTheme, setActiveTheme] = useState(lightTheme);
-  const [selectTheme, setSelectTheme] = useState<'light' | 'dark'>('light');
-  
-  const toggleTheme = () => {
+  const [activeTheme, setActiveTheme] = useState<Theme>();
+  const [selectTheme, setSelectTheme] = useState<'light' | 'dark'>();
+
+  useEffect(() => {
+    setActiveTheme(getItem('theme', 'local') == 'light' ? lightTheme : darkTheme);
+    setSelectTheme(getItem('theme', 'local') == 'light' ? 'light' : 'dark')
+  }, [selectTheme]);
+
+  const toggleTheme = async () => {
     const desiredTheme = selectTheme == 'light' ? 'dark' : 'light';
+    setItem('theme', desiredTheme, 'local');
     setSelectTheme(desiredTheme);
   };
 
-  useEffect(() => {
-    setActiveTheme(selectTheme == 'light' ? lightTheme : darkTheme);
-  }, [selectTheme]);
-
+  if (!activeTheme) return <></>
 
   return (
     <CacheProvider value={emotionCache}>
